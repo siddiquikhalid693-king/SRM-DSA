@@ -1,3 +1,4 @@
+//palindrome number
 class Solution {
     public boolean isPalindrome(int x) {
         if (x < 0) {
@@ -19,6 +20,7 @@ class Solution {
 
 
 --------------------------------
+//two sum
 import java.util.HashMap;
 
 class Solution {
@@ -39,6 +41,7 @@ class Solution {
     }
 }
 ---------------------------------
+//add two number
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0);
@@ -69,6 +72,7 @@ class Solution {
 }
 
 -------------------------------------------------
+//roman integer
 class Solution {
     public int romanToInt(String s) {
         int ans = 0;
@@ -94,7 +98,39 @@ class Solution {
     }
 }
 --------------------------------------------------------
+//longest common prefix
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        String p = strs[0];
 
+        for (int i = 1; i < strs.length; i++) {
+            while (!strs[i].startsWith(p)) {
+                p = p.substring(0, p.length() - 1);
+                if (p.isEmpty()) return "";
+            }
+        }
+
+        return p;
+    }
+}
+----------------------------------
+//array part.
+import java.util.Arrays;
+
+class Solution {
+    public int arrayPairSum(int[] nums) {
+        Arrays.sort(nums);
+
+        int sum = 0;
+        for (int i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+
+        return sum;
+    }
+}
+--------------------------------------
+//
 
 
 
