@@ -129,7 +129,7 @@ class Solution {
         return sum;
     }
 }
-------------------------------------------
+-----------------------------------------------
 //input value of an array then print the values
 
 import java.util.Scanner;
