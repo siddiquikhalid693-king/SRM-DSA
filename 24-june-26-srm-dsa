@@ -1,0 +1,76 @@
+class Solution {
+    static final long MOD = 1_000_000_007L;
+
+    public int zigZagArrays(int n, int l, int r) {
+        int m = r - l + 1;
+
+        if (n == 1) return m;
+
+        int size = 2 * m;
+        long[] vec = new long[size];
+
+        // length = 2 base
+        for (int i = 0; i < m; i++) {
+            vec[i] = i;             // up: previous value smaller
+            vec[m + i] = m - 1 - i; // down: previous value bigger
+        }
+
+        long[][] mat = new long[size][size];
+
+        for (int i = 0; i < m; i++) {
+            // new up[i] = sum of old down[j], j < i
+            for (int j = 0; j < i; j++) {
+                mat[i][m + j] = 1;
+            }
+
+            // new down[i] = sum of old up[j], j > i
+            for (int j = i + 1; j < m; j++) {
+                mat[m + i][j] = 1;
+            }
+        }
+
+        long exp = n - 2L;
+
+        while (exp > 0) {
+            if ((exp & 1) == 1) vec = multiply(mat, vec);
+            mat = multiply(mat, mat);
+            exp >>= 1;
+        }
+
+        long ans = 0;
+        for (long x : vec) ans = (ans + x) % MOD;
+
+        return (int) ans;
+    }
+
+    private long[] multiply(long[][] mat, long[] vec) {
+        int n = vec.length;
+        long[] res = new long[n];
+
+        for (int i = 0; i < n; i++) {
+            long sum = 0;
+            for (int j = 0; j < n; j++) {
+                sum = (sum + mat[i][j] * vec[j]) % MOD;
+            }
+            res[i] = sum;
+        }
+
+        return res;
+    }
+
+    private long[][] multiply(long[][] a, long[][] b) {
+        int n = a.length;
+        long[][] res = new long[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int k = 0; k < n; k++) {
+                if (a[i][k] == 0) continue;
+                for (int j = 0; j < n; j++) {
+                    res[i][j] = (res[i][j] + a[i][k] * b[k][j]) % MOD;
+                }
+            }
+        }
+
+        return res;
+    }
+}
